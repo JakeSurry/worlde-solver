@@ -1,8 +1,11 @@
+#Creates a list of all the words from the words.txt file
 words = []
 with open('words.txt') as f:
     words = f.readlines()
 words = [w.strip() for w in words]
 
+#This dictionary ranks letters based off of how likely they are to apear in the final word,
+#These values were found using the letter_frequency.py program
 letter_frequency = {
     'a': 0.09235, 
     'b': 0.02508, 
@@ -32,6 +35,7 @@ letter_frequency = {
     'z': 0.00669
     }
 
+#This function is just for getting and organizing the inputs of the user
 def get_letter_list(correct, present, absent):
     word = input('List your guess: ')
     correct_letters = input('List all correct letters: ')
@@ -52,15 +56,25 @@ correct = []
 present = []
 absent = []
 
+#This is the main loop of the program
 for i in range(5):
     correct, present, absent = get_letter_list(correct, present, absent)
     possible = []
+
+    #This is what checks every word in the words.txt file, and compares it to the user information
     for word in words:
+
+        #This makes sure the correct letters are in the word and in the right place
         if len([pair for pair in correct if word[pair[1]] == pair[0]]) == len(correct):
+
+            #This checks if the present letters are in the word, but not where they were initially found
             if len([pair for pair in present if word[pair[1]] != pair[0]]) == len(present) and (set([pair[0] for pair in present]) - set([char for char in word]) == set()) or len(present) == 0:
+                
+                #This checks to make sure the absent letters aren't in the word
                 if not (set([char for char in word]) & set([pair[0] for pair in absent])):
                     possible.append(word)
 
+    #This ranks all of the words in the possible list, and then displays them to the user
     if len(possible) > 1:
         best_word = {}
         for word in possible: 
@@ -73,4 +87,7 @@ for i in range(5):
     else:
         print(f'\nPossible Words: {possible[0]}\n')
         break
-
+'''
+This project was made by Jake Surry
+Thanks for checking it out, hope it is helpful or interesting to you!
+'''
