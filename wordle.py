@@ -1,4 +1,5 @@
 import random as rand
+import time
 
 words = []
 with open('words.txt') as f:
@@ -33,8 +34,9 @@ def out_formatter(word, alphabet):
     word = [char for char in word]
     final = final_word
 
-    if word == final:
+    if ''.join(word) == final:
         win = True
+
     for i, char in enumerate(word):
 
         if char == final[i]:
@@ -94,9 +96,12 @@ for i in range(6):
     row, alphabet, win = out_formatter(row, alphabet)
     grid.append(row)
 
+    if win:
+        break
+
 print('')
 alphabet_out(alphabet)
-print('\n')
-grid_out(grid, 6)
+print('')
+grid_out(grid, i)
 
-print(f'\n{final_word}\n')
+print(f'\nFinal Word: {final_word}\n')
