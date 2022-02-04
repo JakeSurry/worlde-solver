@@ -1,3 +1,11 @@
+'''
+
+---------------------------------------------------------------
+This section was to create my custom letter freuqeuncy rankings
+---------------------------------------------------------------
+
+'''
+
 words = []
 with open('words.txt') as f:
     words = f.readlines()
@@ -65,5 +73,22 @@ new_dic = {
     'z': 0.00669
     }
 
+'''
 
+--------------------------------------------------------
+This section was to find the best possible starting word 
+--------------------------------------------------------
 
+'''
+
+with open('words.txt') as f:
+    words = f.readlines()
+words = [w.strip() for w in words]
+
+best_word = {}
+for word in words: 
+    best_word[word] = sum(new_dic[char] for char in set(word))
+
+best_word = sorted(best_word, key=best_word.get, reverse=True)[0]
+
+print(best_word)
